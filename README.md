@@ -44,23 +44,7 @@ cd Angular
 npm install
 ```
 
-### 3. Configurar API Keys
-
-Edita el archivo `src/environments/environment.ts` y reemplaza los placeholders con tus API keys:
-
-```typescript
-export const environment = {
-  production: false,
-  tmdbApiKey: 'TU_API_KEY_DE_TMDB',       // ← Reemplaza aquí
-  tmdbBaseUrl: 'https://api.themoviedb.org/3',
-  tmdbImageBaseUrl: 'https://image.tmdb.org/t/p',
-  weatherApiKey: 'TU_API_KEY_DE_OPENWEATHER', // ← Reemplaza aquí
-  weatherBaseUrl: 'https://api.openweathermap.org/data/2.5',
-  weatherIconUrl: 'https://openweathermap.org/img/wn',
-};
-```
-
-### 4. Ejecutar en modo desarrollo
+### 3. Ejecutar en modo desarrollo
 
 ```bash
 npx ng serve
