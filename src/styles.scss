@@ -1,0 +1,121 @@
+// Custom Theming for Angular Material
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Define a custom dark blue theme
+$data-explorer-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+// Apply theme to all components
+:root {
+  @include mat.all-component-themes($data-explorer-theme);
+}
+
+// ==========================================
+// Global Styles
+// ==========================================
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f5f7ff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ==========================================
+// Scrollbar Styling
+// ==========================================
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b0bec5;
+  border-radius: 4px;
+
+  &:hover {
+    background: #90a4ae;
+  }
+}
+
+// ==========================================
+// Snackbar Custom Classes
+// ==========================================
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #c62828;
+  --mdc-snackbar-supporting-text-color: white;
+  --mat-snack-bar-button-color: #ffcdd2;
+}
+
+.warning-snackbar {
+  --mdc-snackbar-container-color: #e65100;
+  --mdc-snackbar-supporting-text-color: white;
+  --mat-snack-bar-button-color: #ffe0b2;
+}
+
+.success-snackbar {
+  --mdc-snackbar-container-color: #2e7d32;
+  --mdc-snackbar-supporting-text-color: white;
+  --mat-snack-bar-button-color: #c8e6c9;
+}
+
+// ==========================================
+// Material Overrides for Consistency
+// ==========================================
+
+.mat-mdc-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mat-mdc-row:last-child .mat-mdc-cell {
+  border-bottom: none;
+}
+
+.mat-mdc-paginator {
+  border-radius: 0 0 12px 12px;
+}
+
+// ==========================================
+// Utility Classes
+// ==========================================
+
+.text-center {
+  text-align: center;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
