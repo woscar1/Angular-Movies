@@ -1,5 +1,4 @@
-# Data Explorer — Películas & Clima
-
+# Data Explorer — Películas
 Aplicación Angular 18 que consume dos APIs públicas (**The Movie Database** y **OpenWeatherMap**) para mostrar datos de películas populares y clima de ciudades del mundo en tablas interactivas con Angular Material.
 
 ![Angular](https://img.shields.io/badge/Angular-18-red?logo=angular)
