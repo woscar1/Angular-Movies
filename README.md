@@ -11,10 +11,8 @@ Aplicación Angular 18 que consume dos APIs públicas (**The Movie Database** y 
 ## ✨ Características
 
 - 🎬 **Tabla de Películas**: Películas populares de TMDB con póster, título, rating y sinopsis
-- 🌤️ **Tabla de Clima**: Clima en tiempo real de 15 ciudades del mundo
-- 🔄 **Toggle Interactivo**: Cambia entre datasets de películas y clima
-- 🔍 **Búsqueda con Debounce**: Filtra películas por título o ciudades por nombre
-- 📄 **Paginación**: Server-side (películas) y client-side (clima)
+- 🔍 **Búsqueda con Debounce**: Filtra películas por título o por nombre
+- 📄 **Paginación**: Server-side (películas) 
 - 📱 **Diseño Responsive**: Se adapta a móvil, tablet y desktop
 - ⚡ **Standalone Components**: Arquitectura moderna sin NgModules
 - 🏗️ **Lazy Loading**: Carga diferida de la página principal
@@ -147,7 +145,6 @@ Todas las respuestas de API están tipadas con interfaces TypeScript (`Movie`, `
 | API | Endpoints | Uso |
 |-----|-----------|-----|
 | [TMDB v3](https://developer.themoviedb.org/) | `/movie/popular`, `/search/movie` | Películas populares y búsqueda |
-| [OpenWeatherMap](https://openweathermap.org/api) | `/weather?q={city}` | Clima actual por ciudad |
 
 ---
 
