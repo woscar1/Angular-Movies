@@ -9,17 +9,17 @@ Aplicación Angular 18 que consume dos APIs públicas (**The Movie Database** y 
 
 ## ✨ Características
 
-- 🎬 **Tabla de Películas**: Películas populares de TMDB con póster, título, rating y sinopsis
-- 🔍 **Búsqueda con Debounce**: Filtra películas por título o por nombre
-- 📄 **Paginación**: Server-side (películas) 
-- 📱 **Diseño Responsive**: Se adapta a móvil, tablet y desktop
-- ⚡ **Standalone Components**: Arquitectura moderna sin NgModules
-- 🏗️ **Lazy Loading**: Carga diferida de la página principal
-- 🔔 **Feedback Visual**: Spinners de carga y notificaciones de error con Snackbar
+-  **Tabla de Películas**: Películas populares de TMDB con póster, título, rating y sinopsis
+-  **Búsqueda con Debounce**: Filtra películas por título o por nombre
+-  **Paginación**: Server-side (películas) 
+-  **Diseño Responsive**: Se adapta a móvil, tablet y desktop
+-  **Standalone Components**: Arquitectura moderna sin NgModules
+-  **Lazy Loading**: Carga diferida de la página principal
+-  **Feedback Visual**: Spinners de carga y notificaciones de error con Snackbar
 
 ---
 
-## 📋 Requisitos Previos
+##  Requisitos Previos
 
 - **Node.js** v18 o superior ([descargar](https://nodejs.org/))
 - **npm** v9 o superior (incluido con Node.js)
@@ -28,13 +28,13 @@ Aplicación Angular 18 que consume dos APIs públicas (**The Movie Database** y 
 
 ---
 
-## 🚀 Instalación
+##### INSTALACIÓN #####
 
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <url-del-repositorio>
-cd Angular
+https://github.com/woscar1/Angular-Movies.git
+cd Angular-Movies
 ```
 
 ### 2. Instalar dependencias
@@ -53,7 +53,7 @@ La aplicación estará disponible en **http://localhost:4200/**
 
 ---
 
-## 📦 Comandos Disponibles
+## Comandos Disponibles
 
 | Comando | Descripción |
 |---------|-------------|
@@ -64,7 +64,7 @@ La aplicación estará disponible en **http://localhost:4200/**
 
 ---
 
-## 🗂️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 src/
@@ -93,7 +93,7 @@ src/
 
 ---
 
-## 🏗️ Arquitectura
+##  Arquitectura
 
 ### Standalone Components
 La aplicación usa **standalone components** de Angular 18, eliminando la necesidad de NgModules. Cada componente declara sus propias dependencias en su decorador `@Component`.
@@ -113,7 +113,7 @@ Todas las respuestas de API están tipadas con interfaces TypeScript (`Movie`, `
 
 ---
 
-## 🎨 Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 - **Angular 18** — Framework principal
 - **Angular Material 18** — Componentes UI (tablas, paginador, formularios, snackbar, toggle)
@@ -123,7 +123,7 @@ Todas las respuestas de API están tipadas con interfaces TypeScript (`Movie`, `
 
 ---
 
-## 📡 APIs Consumidas
+##  APIs Consumidas
 
 | API | Endpoints | Uso |
 |-----|-----------|-----|
@@ -131,6 +131,6 @@ Todas las respuestas de API están tipadas con interfaces TypeScript (`Movie`, `
 
 ---
 
-## 📄 Licencia
+##  Licencia
 
 Este proyecto fue creado con fines educativos y de evaluación técnica.

@@ -2,57 +2,50 @@
   <!-- Search Field -->
   <mat-form-field class="search-field" appearance="outline">
     <mat-label>Buscar películas</mat-label>
-    <input
-      matInput
-      id="movie-search-input"
-      [ngModel]="searchQuery"
-      (ngModelChange)="onSearchChange($event)"
-      placeholder="Escribe el nombre de una película..."
-    />
+    <input matInput id="movie-search-input" [ngModel]="searchQuery" (ngModelChange)="onSearchChange($event)"
+      placeholder="Escribe el nombre de una película..." />
     <mat-icon matPrefix>search</mat-icon>
-    @if (searchQuery) {
-      <button matSuffix mat-icon-button aria-label="Limpiar búsqueda" (click)="clearSearch()">
-        <mat-icon>close</mat-icon>
-      </button>
+    @if (isLoading) {
+    <mat-spinner matSuffix diameter="22" strokeWidth="3" class="search-spinner"></mat-spinner>
+    } @else if (searchQuery) {
+    <button matSuffix mat-icon-button aria-label="Limpiar búsqueda" (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
     }
   </mat-form-field>
 
   <!-- Main Content Area -->
   <div class="content-relative-container">
-    
+
     <!-- Loading Overlay -->
     @if (isLoading) {
-      <div class="loading-overlay">
-        <mat-spinner diameter="48"></mat-spinner>
-        <p class="loading-text">Cargando...</p>
-      </div>
+    <div class="loading-overlay">
+      <mat-spinner diameter="50" strokeWidth="4" color="primary"></mat-spinner>
+      <p class="loading-text">Cargando películas...</p>
+    </div>
     }
 
     @if (movies.length === 0 && !isLoading) {
-      <div class="empty-state">
-        <mat-icon class="empty-icon">movie_filter</mat-icon>
-        <p class="empty-text">
-          @if (searchQuery) {
-            No se encontraron películas para "{{ searchQuery }}"
-          } @else {
-            No hay películas disponibles
-          }
-        </p>
-      </div>
+    <div class="empty-state">
+      <mat-icon class="empty-icon">movie_filter</mat-icon>
+      <p class="empty-text">
+        @if (searchQuery) {
+        No se encontraron películas para "{{ searchQuery }}"
+        } @else {
+        No hay películas disponibles
+        }
+      </p>
+    </div>
     }
-    
-    <div class="table-wrapper" [style.display]="(movies.length === 0 && !isLoading) ? 'none' : 'block'" [class.table-loading]="isLoading">
+
+    <div class="table-wrapper" [style.display]="(movies.length === 0 && !isLoading) ? 'none' : 'block'"
+      [class.table-loading]="isLoading">
       <table mat-table [dataSource]="movies" class="movies-mat-table">
         <!-- Poster Column -->
         <ng-container matColumnDef="poster">
           <th mat-header-cell *matHeaderCellDef>Póster</th>
           <td mat-cell *matCellDef="let movie">
-            <img
-              [src]="getPosterUrl(movie.poster_path)"
-              [alt]="movie.title"
-              class="movie-poster"
-              loading="lazy"
-            />
+            <img [src]="getPosterUrl(movie.poster_path)" [alt]="movie.title" class="movie-poster" loading="lazy" />
           </td>
         </ng-container>
 
@@ -106,17 +99,9 @@
     </div>
 
     <!-- Paginator -->
-    <mat-paginator
-      [style.display]="(movies.length === 0 && !isLoading) ? 'none' : 'block'"
-      id="movies-paginator"
-      [length]="totalResults"
-      [pageSize]="pageSize"
-      [pageIndex]="pageIndex"
-      [pageSizeOptions]="[5, 10, 20]"
-      (page)="onPageChange($event)"
-      showFirstLastButtons
-      aria-label="Seleccionar página de películas"
-    >
+    <mat-paginator [style.display]="(movies.length === 0 && !isLoading) ? 'none' : 'block'" id="movies-paginator"
+      [length]="totalResults" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[3, 10, 20]"
+      (page)="onPageChange($event)" showFirstLastButtons aria-label="Seleccionar página de películas">
     </mat-paginator>
   </div>
 </div>

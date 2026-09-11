@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -10,6 +10,7 @@ import { MatPaginatorModule, MatPaginator, PageEvent } from '@angular/material/p
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -39,6 +40,7 @@ import { Movie } from '../../models/movie.model';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatButtonModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTooltipModule,
@@ -56,7 +58,7 @@ export class MoviesTableComponent implements OnInit, OnDestroy {
 
   /** Cached movies from the currently loaded TMDB page (20 items) */
   private currentTmdbPageMovies: Movie[] = [];
-  
+
   /** The TMDB page currently cached */
   private loadedTmdbPage = 0;
 
@@ -67,10 +69,10 @@ export class MoviesTableComponent implements OnInit, OnDestroy {
   pageIndex = 0;
 
   /** Items per page */
-  pageSize = 5;
+  pageSize = 3;
 
-  /** Loading state */
-  isLoading = false;
+  /** Loading state - starts true so spinner is visible from initial render */
+  isLoading = true;
 
   /** Current search query */
   searchQuery = '';
@@ -83,8 +85,9 @@ export class MoviesTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private movieService: MovieService,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     // Setup debounced search
@@ -111,9 +114,12 @@ export class MoviesTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handles search input changes with debounce.
+   * Handles search input changes with immediate loading feedback and debounce.
    */
   onSearchChange(query: string): void {
+    this.searchQuery = query;
+    this.isLoading = true;
+    this.cdr.markForCheck();
     this.searchSubject.next(query);
   }
 
@@ -122,7 +128,11 @@ export class MoviesTableComponent implements OnInit, OnDestroy {
    */
   clearSearch(): void {
     this.searchQuery = '';
-    this.searchSubject.next('');
+    this.isLoading = true;
+    this.pageIndex = 0;
+    this.loadedTmdbPage = 0;
+    this.cdr.markForCheck();
+    this.loadMovies();
   }
 
   /**
@@ -158,13 +168,16 @@ export class MoviesTableComponent implements OnInit, OnDestroy {
     // Calculate which TMDB page contains the items we need for our UI page.
     const requiredTmdbPage = Math.floor((this.pageIndex * this.pageSize) / 20) + 1;
 
-    // If we already have the required TMDB page cached, just update the view
+    // If we already have the required TMDB page cached:
     if (this.loadedTmdbPage === requiredTmdbPage && this.currentTmdbPageMovies.length > 0) {
       this.updateDisplayedMovies();
+      this.isLoading = false;
+      this.cdr.markForCheck();
       return;
     }
 
     this.isLoading = true;
+    this.cdr.markForCheck();
 
     const request$ = this.searchQuery.trim()
       ? this.movieService.searchMovies(this.searchQuery.trim(), requiredTmdbPage)
@@ -177,12 +190,14 @@ export class MoviesTableComponent implements OnInit, OnDestroy {
         this.loadedTmdbPage = requiredTmdbPage;
         this.updateDisplayedMovies();
         this.isLoading = false;
+        this.cdr.markForCheck();
       },
       error: (error: Error) => {
         this.isLoading = false;
         this.movies = [];
         this.currentTmdbPageMovies = [];
         this.totalResults = 0;
+        this.cdr.markForCheck();
         this.snackBar.open(error.message, 'Cerrar', {
           duration: 5000,
           panelClass: ['error-snackbar'],
@@ -199,5 +214,6 @@ export class MoviesTableComponent implements OnInit, OnDestroy {
   private updateDisplayedMovies(): void {
     const startIndex = (this.pageIndex * this.pageSize) % 20;
     this.movies = this.currentTmdbPageMovies.slice(startIndex, startIndex + this.pageSize);
+    this.cdr.markForCheck();
   }
 }
